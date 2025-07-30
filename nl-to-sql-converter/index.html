@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Language to SQL Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Natural Language to SQL Query Converter</h1>
+            <p>Convert your natural language questions into SQL queries and see the results instantly</p>
+        </header>
+
+        <!-- Main Interface -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="card">
+                    <div class="card__body">
+                        <label for="nlQuery" class="form-label">Enter your question in natural language:</label>
+                        <textarea 
+                            id="nlQuery" 
+                            class="form-control query-input" 
+                            placeholder="e.g., Show all customers from London"
+                            rows="3"
+                        ></textarea>
+                        <div class="input-actions">
+                            <button id="convertBtn" class="btn btn--primary">
+                                <span class="btn-text">Convert to SQL</span>
+                                <span class="loading-spinner hidden">Converting...</span>
+                            </button>
+                            <button id="clearBtn" class="btn btn--outline">Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section">
+                <div class="card">
+                    <div class="card__header">
+                        <h3>Query Results</h3>
+                        <div class="result-actions">
+                            <button id="copyBtn" class="btn btn--sm btn--outline hidden">Copy SQL</button>
+                        </div>
+                    </div>
+                    <div class="card__body">
+                        <div id="resultsContainer" class="results-container">
+                            <div class="empty-state">
+                                <p>Enter a natural language query above to see the generated SQL and results here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Database Schema -->
+            <section class="schema-section">
+                <div class="card">
+                    <div class="card__header">
+                        <h3>Database Schema</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="schema-grid">
+                            <div class="table-schema">
+                                <h4>customers</h4>
+                                <ul class="schema-list">
+                                    <li><strong>id</strong> - INTEGER PRIMARY KEY</li>
+                                    <li><strong>name</strong> - TEXT</li>
+                                    <li><strong>city</strong> - TEXT</li>
+                                    <li><strong>age</strong> - INTEGER</li>
+                                    <li><strong>email</strong> - TEXT</li>
+                                </ul>
+                            </div>
+                            <div class="table-schema">
+                                <h4>orders</h4>
+                                <ul class="schema-list">
+                                    <li><strong>id</strong> - INTEGER PRIMARY KEY</li>
+                                    <li><strong>customer_id</strong> - INTEGER FK</li>
+                                    <li><strong>product</strong> - TEXT</li>
+                                    <li><strong>amount</strong> - REAL</li>
+                                    <li><strong>date</strong> - TEXT</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Example Queries -->
+            <section class="examples-section">
+                <div class="card">
+                    <div class="card__header">
+                        <h3>Example Queries</h3>
+                        <p class="section-description">Click on any example to try it out</p>
+                    </div>
+                    <div class="card__body">
+                        <div id="exampleQueries" class="examples-grid">
+                            <!-- Examples will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Query History -->
+            <section class="history-section">
+                <div class="card">
+                    <div class="card__header">
+                        <h3>Query History</h3>
+                        <button id="clearHistoryBtn" class="btn btn--sm btn--outline">Clear History</button>
+                    </div>
+                    <div class="card__body">
+                        <div id="queryHistory" class="history-container">
+                            <div class="empty-state">
+                                <p>Your query history will appear here.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Error Modal -->
+        <div id="errorModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Query Error</h3>
+                    <button id="closeErrorModal" class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button id="closeError" class="btn btn--primary">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
